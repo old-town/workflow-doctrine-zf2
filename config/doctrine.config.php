@@ -14,7 +14,7 @@ return [
             'WorkflowDoctrineEntity' => [
                 'paths' => call_user_func(function(){
                     $r = new ReflectionClass(Entry::class);
-                    $path = $r->getFileName();
+                    $path = dirname($r->getFileName());
 
                     return $path;
                 }),

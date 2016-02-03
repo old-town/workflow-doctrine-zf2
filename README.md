@@ -1,2 +1,5 @@
-# workflow-doctrine-zf2
-Интеграция workflow, doctrine, zf2
+# workflow-designer-server
+Серверная часть предоставляющая api для работы с конструктором workflow
+
+
+

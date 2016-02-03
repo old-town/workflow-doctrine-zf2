@@ -80,7 +80,7 @@
     },
     {
       "type": "vcs",
-      "url": "git@github.com:old-town/workflow-doctrine-zf2.git"
+      "url": "git@github.com:old-town/workflow-doctrine.git"
     }
   ]
 }

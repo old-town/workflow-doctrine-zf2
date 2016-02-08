@@ -31,7 +31,7 @@ class Paths
             return static::$pathToAppConfig;
         }
 
-        static::$pathToAppConfig =   __DIR__ . '/_files/app/application.config.php';
+        static::$pathToAppConfig =   realpath(__DIR__ . '/_files/app/application.config.php');
 
         return static::$pathToAppConfig;
     }

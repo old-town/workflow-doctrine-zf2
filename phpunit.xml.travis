@@ -12,15 +12,18 @@
         syntaxCheck="true"
         >
     <testsuites>
-        <testsuite name="Workflow Designer Server Tests">
+        <testsuite name="Integration workflow zf2 and doctrine">
             <directory>./test/phpunit/tests</directory>
         </testsuite>
     </testsuites>
 
+
     <filter>
-        <blacklist>
-            <directory>./vendor</directory>
-            <directory>./test</directory>
-        </blacklist>
+        <whitelist>
+            <directory>./src</directory>
+        </whitelist>
     </filter>
+    <logging>
+        <log type="coverage-php" target="./build/logs/coverage/coverage-phpunit.cov"/>
+    </logging>
 </phpunit>

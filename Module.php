@@ -36,6 +36,9 @@ class Module implements
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+
+        $sl = $e->getApplication()->getServiceManager();
+        EntityManagerFactory::setDefaultServiceLocator($sl);
     }
 
     /**

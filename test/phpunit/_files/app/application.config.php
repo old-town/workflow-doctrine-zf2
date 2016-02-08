@@ -9,8 +9,10 @@ return [
     ],
     'module_listener_options' => [
         'module_paths' => [
-            'OldTown\\Workflow\\ZF2\\View' => Paths::getPathToModule(),
+            'OldTown\\Workflow\\Doctrine\\ZF2' => Paths::getPathToModule(),
         ],
-        'config_glob_paths' => []
+        'config_glob_paths' => [
+
+        ]
     ]
 ];

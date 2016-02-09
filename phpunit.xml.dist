@@ -29,47 +29,28 @@
     <listeners>
         <listener class="\OldTown\Workflow\Doctrine\ZF2\PhpUnit\Utils\InitTestAppListener" file="./test/phpunit/utils/InitTestAppListener.php">
             <arguments>
+                <!-- Имя соеденения - которое можно получить через сервис doctrine.connection.ИМЯ_СОЕДЕНЕНИЯ -->
+                <string>test</string>
+                 <!-- Используемый драйвер -->
+                <string>\Doctrine\DBAL\Driver\PDOMySql\Driver</string>
                 <array>
-                    <!-- Конфиг приложения-->
-                    <element key="appConfig">
-                        <array>
-                            <element key="doctrine">
-                                <array>
-                                    <element key="connection">
-                                        <array>
-                                            <element key="test">
-                                                <array>
-                                                    <element key="driverClass">
-                                                        <string>\Doctrine\DBAL\Driver\PDOMySql\Driver</string>
-                                                    </element>
-                                                    <element key="params">
-                                                        <array>
-                                                            <element key="host">
-                                                                <string>test_hosts</string>
-                                                            </element>
-                                                            <element key="port">
-                                                                <string>test_port</string>
-                                                            </element>
-                                                            <element key="user">
-                                                                <string>test_user</string>
-                                                            </element>
-                                                            <element key="password">
-                                                                <string>test_password</string>
-                                                            </element>
-                                                            <element key="dbname">
-                                                                <string>test_database_name</string>
-                                                            </element>
-                                                        </array>
-                                                    </element>
-                                                </array>
-                                            </element>
-                                        </array>
-                                    </element>
-                                </array>
-                            </element>
-                        </array>
+                    <element key="host">
+                        <string>test_hosts</string>
+                    </element>
+                    <element key="port">
+                        <string>test_port</string>
+                    </element>
+                    <element key="user">
+                        <string>test_user</string>
+                    </element>
+                    <element key="password">
+                        <string>test_password</string>
+                    </element>
+                    <element key="dbname">
+                        <string>test_database_name</string>
                     </element>
                 </array>
+
             </arguments>
         </listener>
     </listeners>

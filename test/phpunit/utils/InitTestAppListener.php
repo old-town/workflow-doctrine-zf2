@@ -12,6 +12,8 @@ use PHPUnit_Framework_TestSuite;
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\MvcEvent;
+use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Class InitTestAppListener
@@ -21,34 +23,64 @@ use Zend\Mvc\MvcEvent;
 class InitTestAppListener extends AbstractListenerAggregate implements \PHPUnit_Framework_TestListener
 {
     /**
-     *
      * @var string
      */
-    const APP_CONFIG = 'appConfig';
+    protected static $connectionName;
+
+    /**
+     * @var string
+     */
+    protected static $driverClass;
 
     /**
      * @var array
      */
-    protected static $appConfig = [];
+    protected static $params;
+
+    /**
+     * Флаг определяющий был ли установленны данные при запуске phpunit
+     *
+     * @var bool
+     */
+    protected static $flagInitData = false;
 
     /**
      * @inheritDoc
      */
-    public function __construct(array $options = [])
+    public function __construct($connectionName = null, $driverClass = null, array $params = [])
     {
-        if (array_key_exists(static::APP_CONFIG, $options)) {
-            static::$appConfig = $options[static::APP_CONFIG];
+        if (!static::$flagInitData) {
+            static::$connectionName = $connectionName;
+            static::$driverClass = $driverClass;
+            static::$params = $params;
+
+            static::$flagInitData = true;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getConnectionName()
+    {
+        return static::$connectionName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDriverClass()
+    {
+        return static::$driverClass;
     }
 
     /**
      * @return array
      */
-    public function getAppConfig()
+    public function getParams()
     {
-        return static::$appConfig;
+        return static::$params;
     }
-
 
     /**
      * Подписываемся на событие приложения
@@ -62,11 +94,36 @@ class InitTestAppListener extends AbstractListenerAggregate implements \PHPUnit_
 
     /**
      * @param MvcEvent $e
+     * @throws \Zend\ServiceManager\ServiceLocatorInterface
+     * @throws \Zend\ServiceManager\Exception\ServiceNotFoundException
+     * @throws \Zend\ServiceManager\Exception\InvalidServiceNameException
      */
     public function onBootstrap(MvcEvent $e)
     {
-        $appConfig = $this->getAppConfig();
-        return;
+        $connectionName = $this->getConnectionName();
+        $driverClass = $this->getDriverClass();
+        $params = $this->getParams();
+
+        /** @var ServiceManager $sm */
+        $sm = $e->getApplication()->getServiceManager();
+        $appConfig = $sm->get('Config');
+
+        $data = [
+            'doctrine' => [
+                'connection' => [
+                    $connectionName => [
+                        'driverClass' => $driverClass,
+                        'params' => $params
+                    ]
+                ]
+            ]
+        ];
+        $newAppConfig = ArrayUtils::merge($appConfig, $data);
+
+        $originalAllowOverride = $sm->getAllowOverride();
+        $sm->setAllowOverride(true);
+        $sm->setService('config', $newAppConfig);
+        $sm->setAllowOverride($originalAllowOverride);
     }
 
     /**
@@ -76,7 +133,6 @@ class InitTestAppListener extends AbstractListenerAggregate implements \PHPUnit_
      */
     public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
-
     }
 
     /**
@@ -86,7 +142,6 @@ class InitTestAppListener extends AbstractListenerAggregate implements \PHPUnit_
      */
     public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
     {
-
     }
 
     /**
@@ -96,7 +151,6 @@ class InitTestAppListener extends AbstractListenerAggregate implements \PHPUnit_
      */
     public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
-
     }
 
     /**
@@ -106,7 +160,6 @@ class InitTestAppListener extends AbstractListenerAggregate implements \PHPUnit_
      */
     public function addRiskyTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
-
     }
 
     /**
@@ -116,7 +169,6 @@ class InitTestAppListener extends AbstractListenerAggregate implements \PHPUnit_
      */
     public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
-
     }
 
     /**
@@ -124,7 +176,6 @@ class InitTestAppListener extends AbstractListenerAggregate implements \PHPUnit_
      */
     public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
-
     }
 
     /**
@@ -132,7 +183,6 @@ class InitTestAppListener extends AbstractListenerAggregate implements \PHPUnit_
      */
     public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
-
     }
 
     /**
@@ -140,7 +190,6 @@ class InitTestAppListener extends AbstractListenerAggregate implements \PHPUnit_
      */
     public function startTest(PHPUnit_Framework_Test $test)
     {
-
     }
 
     /**
@@ -149,8 +198,5 @@ class InitTestAppListener extends AbstractListenerAggregate implements \PHPUnit_
      */
     public function endTest(PHPUnit_Framework_Test $test, $time)
     {
-
     }
-
-
 }

@@ -19,7 +19,6 @@ class Paths
      */
     protected static $pathToAppConfig;
 
-
     /**
      * Возвращает путь до директории с данными для тестов
      *
@@ -34,6 +33,17 @@ class Paths
         static::$pathToAppConfig =   realpath(__DIR__ . '/_files/app/application.config.php');
 
         return static::$pathToAppConfig;
+    }
+
+
+    /**
+     * Возвращает путь путь до директории в которой создаются прокси классы для сущностей доктрины
+     *
+     * @return string
+     */
+    public static function getPathToDoctrineProxyDir()
+    {
+        return __DIR__ . '/../../data/test/Proxies/';
     }
 
     /**

@@ -26,4 +26,47 @@
     <logging>
         <log type="coverage-php" target="./build/logs/coverage/coverage-phpunit.cov"/>
     </logging>
+
+    <listeners>
+        <listener class="\OldTown\Workflow\Doctrine\ZF2\PhpUnit\Utils\InitTestAppListener" file="./test/phpunit/utils/InitTestAppListener.php">
+            <arguments>
+                <array>
+                    <!-- Конфиг приложения-->
+                    <element key="appConfig">
+                        <array>
+                            <element key="doctrine">
+                                <array>
+                                    <element key="connection">
+                                        <array>
+                                            <element key="test">
+                                                <array>
+                                                    <element key="driverClass">
+                                                        <string>\Doctrine\DBAL\Driver\PDOMySql\Driver</string>
+                                                    </element>
+                                                    <element key="params">
+                                                        <array>
+                                                            <element key="host">
+                                                                <string>127.0.0.1</string>
+                                                            </element>
+                                                            <element key="user">
+                                                                <string>root</string>
+                                                            </element>
+                                                            <element key="dbname">
+                                                                <string>test_database_name</string>
+                                                            </element>
+                                                        </array>
+                                                    </element>
+                                                </array>
+                                            </element>
+                                        </array>
+                                    </element>
+                                </array>
+                            </element>
+                        </array>
+                    </element>
+                </array>
+            </arguments>
+        </listener>
+    </listeners>
+
 </phpunit>

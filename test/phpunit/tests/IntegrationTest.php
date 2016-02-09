@@ -6,6 +6,8 @@
 namespace OldTown\Workflow\Doctrine\ZF2\PhpUnit\Test;
 
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+use OldTown\Workflow\Basic\BasicWorkflow;
+
 
 /**
  * Class ModuleTest
@@ -20,6 +22,8 @@ class IntegrationTest extends AbstractHttpControllerTestCase
         $this->setApplicationConfig(
             include Paths::getPathToAppConfig()
         );
-        $this->assertModulesLoaded(['OldTown\Workflow\Doctrine\ZF2']);
+        /** @var BasicWorkflow $wfManager */
+        $wfManager = $this->getApplicationServiceLocator()->get('workflow.manager.testWorkflowManager');
+        $wfManager->initialize('test', 1);
     }
 }

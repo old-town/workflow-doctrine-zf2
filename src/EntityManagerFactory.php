@@ -17,6 +17,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class EntityManagerFactory implements EntityManagerFactoryInterface
 {
+    /**
+     * @var string
+     */
     const ENTITY_MANAGER_NAME = 'entityManagerName';
 
     /**

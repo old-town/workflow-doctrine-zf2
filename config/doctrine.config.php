@@ -14,9 +14,7 @@ return [
             'WorkflowDoctrineEntity' => [
                 'paths' => call_user_func(function(){
                     $r = new ReflectionClass(Entry::class);
-                    $path = dirname($r->getFileName());
-
-                    return $path;
+                    return dirname($r->getFileName());
                 }),
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
             ],

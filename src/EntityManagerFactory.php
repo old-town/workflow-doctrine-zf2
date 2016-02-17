@@ -55,9 +55,7 @@ class EntityManagerFactory implements EntityManagerFactoryInterface
         }
         $emName = $options[static::ENTITY_MANAGER_NAME];
 
-        $em = $this->getServiceLocator()->get($emName);
-
-        return $em;
+        return $this->getServiceLocator()->get($emName);
     }
 
     /**

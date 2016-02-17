@@ -5,7 +5,7 @@
  */
 namespace OldTown\Workflow\Doctrine\ZF2;
 
-use OldTown\Workflow\Spi\Doctrine\Entity\Entry;
+use OldTown\Workflow\Spi\Doctrine\Entity\DefaultEntry;
 use ReflectionClass;
 
 return [
@@ -13,7 +13,7 @@ return [
         'driver' => [
             'WorkflowDoctrineEntity' => [
                 'paths' => call_user_func(function(){
-                    $r = new ReflectionClass(Entry::class);
+                    $r = new ReflectionClass(DefaultEntry::class);
                     return dirname($r->getFileName());
                 }),
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',

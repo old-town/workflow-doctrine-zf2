@@ -61,7 +61,8 @@ class IntegrationTest extends AbstractHttpControllerTestCase
 
         static::assertCount(1, $currentSteps);
         /** @var CurrentStep $step */
-        $step = current($currentSteps);
+        $currentSteps->rewind();
+        $step = $currentSteps->current();
         static::assertInstanceOf(CurrentStep::class, $step);
         static::assertEquals(2, $step->getStepId());
     }

@@ -1,0 +1,7 @@
+docs_dir: doc/book/ru
+pages:
+    - index.md
+site_name: workflow-doctrine-zf2
+site_description: 'Интеграция workflow, doctrine и zf2'
+repo_url: 'https://github.com/old-town/workflow-doctrine-zf2'
+copyright: 'Copyright (c) 2016 <a href="https://github.com/old-town/">OldTown</a>'

@@ -6,7 +6,7 @@
 namespace OldTown\Workflow\Doctrine\ZF2\PhpUnit\Test;
 
 use Doctrine\ORM\Tools\SchemaTool;
-use OldTown\Workflow\Spi\Doctrine\Entity\CurrentStep;
+use OldTown\Workflow\Spi\Doctrine\Entity\Step;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 use OldTown\Workflow\Basic\BasicWorkflow;
 
@@ -60,10 +60,10 @@ class IntegrationTest extends AbstractHttpControllerTestCase
         $currentSteps = $wfManager->getCurrentSteps($entryId);
 
         static::assertCount(1, $currentSteps);
-        /** @var CurrentStep $step */
+        /** @var Step $step */
         $currentSteps->rewind();
         $step = $currentSteps->current();
-        static::assertInstanceOf(CurrentStep::class, $step);
+        static::assertInstanceOf(Step::class, $step);
         static::assertEquals(2, $step->getStepId());
     }
 }
